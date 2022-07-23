@@ -1,0 +1,1 @@
+Abstract interpreter based off of Patrick Cousot's "Principles of Abstract Interpretation"
