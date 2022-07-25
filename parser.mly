@@ -1,5 +1,10 @@
 %{
-open AbSyn
+    open AbSyn;;
+    let x = ref 1;;
+    let nextLbl =
+      let res = String.cat "lbl" (string_of_int (!x)) in
+      let _ = x := !x + 1 in
+      res
 %}
 
 %token MINUS PLUS DIVIDE MOD
@@ -26,18 +31,18 @@ open AbSyn
 %%
 
 prog:
-  | l = stmtlist EOF                       { Prog (l, ()) }
+  | l = stmtlist EOF                       { Prog (l, (), nextLbl) }
 
 stmt:
-  | x = IDENT ASSIGN a = aexpr SEMICOLON   { Assign (x, a, ()) }
-  | SEMICOLON                              { Emptystmt () }
+  | x = IDENT ASSIGN a = aexpr SEMICOLON   { Assign (nextLbl, x, a, ()) }
+  | SEMICOLON                              { Emptystmt (nextLbl, ()) }
   | IF LPAREN b = bexpr RPAREN
-    s = stmt %prec NO_ELSE                 { If (b, s, ()) }
+    s = stmt %prec NO_ELSE                 { If (nextLbl, b, s, ()) }
   | IF LPAREN b = bexpr RPAREN s = stmt
-    ELSE s2 = stmt                         { Ifelse (b, s, s2, ()) } 
+    ELSE s2 = stmt                         { Ifelse (nextLbl, b, s, s2, ()) } 
   | WHILE LPAREN b = bexpr RPAREN
-    s = stmt                               { While (b, s, ())}  
-  | BREAK SEMICOLON                        { Break () }
+    s = stmt                               { While (nextLbl, b, s, ())}  
+  | BREAK SEMICOLON                        { Break (nextLbl, ()) }
   | LBRACKET l = stmtlist RBRACKET         { Stmlist (l, ()) }
 
 stmtlist:
