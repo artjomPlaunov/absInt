@@ -2,7 +2,7 @@
     open AbSyn;;
     let x = ref 1;;
     let nextLbl =
-      let res = String.cat "lbl" (string_of_int (!x)) in
+      let res = String.cat "l" (string_of_int (!x)) in
       let _ = x := !x + 1 in
       res
 %}
@@ -31,7 +31,7 @@
 %%
 
 prog:
-  | l = stmtlist EOF                       { Prog (l, (), nextLbl) }
+  | l = stmtlist EOF                       { Prog (l, (), "lExit") }
 
 stmt:
   | x = IDENT ASSIGN a = aexpr SEMICOLON   { Assign (nextLbl, x, a, ()) }
