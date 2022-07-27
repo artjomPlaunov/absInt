@@ -4,7 +4,7 @@ exception Error of string
 }
 
 let digit = ['0'-'9']
-let int = '-'? digit+
+let int = digit+
 let letter = ['a'-'z' 'A'-'Z']
 let id = letter+
 

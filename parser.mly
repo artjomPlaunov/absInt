@@ -1,7 +1,7 @@
 %{
     open AbSyn;;
     let x = ref 1;;
-    let nextLbl =
+    let nextLbl x =
       let res = String.cat "l" (string_of_int (!x)) in
       let _ = x := !x + 1 in
       res
@@ -34,15 +34,15 @@ prog:
   | l = stmtlist EOF                       { Prog (l, (), "lExit") }
 
 stmt:
-  | x = IDENT ASSIGN a = aexpr SEMICOLON   { Assign (nextLbl, x, a, ()) }
-  | SEMICOLON                              { Emptystmt (nextLbl, ()) }
+  | i = IDENT ASSIGN a = aexpr SEMICOLON   { Assign (nextLbl x, i, a, ()) }
+  | SEMICOLON                              { Emptystmt (nextLbl x, ()) }
   | IF LPAREN b = bexpr RPAREN
-    s = stmt %prec NO_ELSE                 { If (nextLbl, b, s, ()) }
+    s = stmt %prec NO_ELSE                 { If (nextLbl x, b, s, ()) }
   | IF LPAREN b = bexpr RPAREN s = stmt
-    ELSE s2 = stmt                         { Ifelse (nextLbl, b, s, s2, ()) } 
+    ELSE s2 = stmt                         { Ifelse (nextLbl x, b, s, s2, ()) } 
   | WHILE LPAREN b = bexpr RPAREN
-    s = stmt                               { While (nextLbl, b, s, ())}  
-  | BREAK SEMICOLON                        { Break (nextLbl, ()) }
+    s = stmt                               { While (nextLbl x, b, s, ())}  
+  | BREAK SEMICOLON                        { Break (nextLbl x, ()) }
   | LBRACKET l = stmtlist RBRACKET         { Stmlist (l, ()) }
 
 stmtlist:
