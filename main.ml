@@ -86,7 +86,6 @@ let rec printProg prog depth =
     let _ = printProg a (depth+2) in
     let _ = indent depth "" in
     print_endline ")"
-  | _ -> print_endline "foobar"
 and printStmlist sl depth =
   match sl with
   | [] -> print_string ""
