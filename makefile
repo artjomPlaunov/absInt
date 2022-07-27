@@ -62,6 +62,26 @@ examples:
 	@echo "x=-10; while (x<0) if (x<0) if (0<x) x = -x;" | ./main.native
 	@echo ""
 
+	@echo "Program 15: x=-10; while (x<0) {x=x-1; break;}; x=10;"
+	@echo "x=-10; while (x<0) {x=x-1; break;}; x=10;" | ./main.native
+	@echo ""
+
+	@echo "Program 16: x=0; while (x<0) { while (x<0) x=x-1; x=10;}; x= 100;"
+	@echo "x=0; while (x<0) { while (x<0) x=x-1; x=10;}; x= 100;" | ./main.native
+	@echo ""
+
+	@echo "Program 17: x=0; while (x<0) { while (x<0) x=x-1; break;}; x=100;"
+	@echo "x=0; while (x<0) { while (x<0) x=x-1; break;}; x=100;" | ./main.native
+	@echo ""
+
+	@echo "Program 18: x=x-1; while (0<1) {x=x-1; if (2<x) break; };"
+	@echo "x=x-1; while (0<1) {x=x-1; if (2<x) break; };" | ./main.native
+	@echo ""
+
+	@echo "Program 19: x=10; while (x>0) x=x-1;"
+	@echo "x=10; while (x>0) x=x-1;" | ./main.native
+	@echo ""
+
 delete:
 	rm -rf *~ .*~ main.native
 	ocamlbuild -clean
