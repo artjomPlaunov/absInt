@@ -7,3 +7,5 @@
 - write an assignment sequence program that keeps track of most recent 
   variable assigned.
 - similarly, write a program that keeps track of signs.
+- extend grammar and program as a whole to handle more boolean and arithmetic
+  constructs.
